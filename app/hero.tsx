@@ -3,11 +3,40 @@
 
 import { useState } from "react";
 
+const services = [
+  {
+    title: "Backend Systems & Architecture",
+    description:
+      "Engineering scalable microservices, custom data infrastructures, and resilient APIs for high-paced fintech and data-heavy applications.",
+    technologies: ["Java", "Spring Boot", "Python", "AWS", "Kubernetes", "Docker"],
+  },
+  {
+    title: "Full-Stack Web Development",
+    description:
+      "Developing dynamic frontends, interactive dashboards, and complete web systems using modern JavaScript frameworks and tactile UIs.",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Tailwind CSS",
+      "Supabase",
+    ],
+  },
+  {
+    title: "AI Integration & Data Pipelines",
+    description:
+      "Building automated processing pipelines, intelligent OCR document digitization, and integrating LLMs for advanced data analysis.",
+    technologies: ["OpenAI", "FastAPI", "OpenCV", "Playwright", "Web Scraping"],
+  },
+];
+
 export default function Hero() {
   const [isDark, setIsDark] = useState(false);
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center overflow-hidden bg-[#314a3c] text-[#fffdf5]">
+    <main className="bg-[#f3ead6] text-[#314a3c]">
+      <div className="relative flex min-h-screen flex-col items-center overflow-hidden bg-[#314a3c] text-[#fffdf5]">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
@@ -90,22 +119,90 @@ export default function Hero() {
         </span>
       </button>
 
+        <section
+          className="relative z-10 flex flex-1 items-center justify-center px-6 pb-24 text-center"
+          id="home"
+        >
+          <div className="max-w-3xl">
+            <p className="mb-5 text-xs uppercase tracking-[0.35em] text-[#f3c98b]">
+              Software engineer
+            </p>
+            <h1 className="text-5xl leading-tight tracking-wide sm:text-7xl">
+              Randila Premarathne
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-2xl">
+              Software engineer, AI engineering, data pipelines, and
+              bioinformatics.
+            </p>
+          </div>
+        </section>
+      </div>
+
       <section
-        className="relative z-10 flex flex-1 items-center justify-center px-6 pb-24 text-center"
-        id="home"
+        className="relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16"
+        id="experience"
       >
-        <div className="max-w-3xl">
-          <p className="mb-5 text-xs uppercase tracking-[0.35em] text-[#f3c98b]">
-            Software engineer
-          </p>
-          <h1 className="text-5xl leading-tight tracking-wide sm:text-7xl">
-            Randila Premarathne
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-2xl">
-            Software engineer, AI engineering, data pipelines, and
-            bioinformatics.
-          </p>
-        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
+          style={{
+            backgroundImage: "url('/about-us.jpeg')",
+            opacity: isDark ? 0 : 1,
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
+          style={{
+            backgroundImage: "url('/about-us-night.jpeg')",
+            opacity: isDark ? 1 : 0,
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="text-center text-white">
+            <p className="text-sm uppercase tracking-[0.3em] text-[#f3c98b]">
+              What I do
+            </p>
+            <h2 className="mx-auto mt-4 max-w-2xl text-4xl leading-tight sm:text-5xl">
+              Building useful things with a little bit of magic.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/85">
+              Thoughtful engineering across backend systems, web experiences,
+              intelligent workflows, and data-rich applications.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              {services.map((service, index) => (
+                <article
+                  className="rounded-3xl border border-white/35 bg-[#1d3028]/35 p-6 text-white backdrop-blur-sm"
+                  key={service.title}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="mt-1 text-sm text-[#f3c98b]">
+                      0{index + 1}
+                    </span>
+                    <div>
+                      <h3 className="text-xl">{service.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/85">
+                        {service.description}
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {service.technologies.map((technology) => (
+                          <span
+                            className="rounded-full border border-dotted border-white/70 px-3 py-1 text-xs text-white"
+                            key={technology}
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
       </section>
     </main>
   );
