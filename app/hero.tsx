@@ -4,12 +4,12 @@
 import {
   useLayoutEffect,
   useRef,
-  useState,
 } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Navbar from "./navbar";
+import { useTheme } from "./theme-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -134,7 +134,7 @@ const companyLogos: Record<string, string> = {
 
 export default function Hero() {
   const pageRef = useRef<HTMLElement>(null);
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
@@ -194,25 +194,27 @@ export default function Hero() {
       className="relative overflow-hidden bg-[#314a3c] text-[#314a3c]"
       ref={pageRef}
     >
-      <div
+      <Image
+        alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-no-repeat transition-opacity duration-500"
-        style={{
-          backgroundImage: "url('/full-background.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          opacity: isDark ? 0 : 1,
-        }}
+        className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top transition-opacity duration-500 ${
+          isDark ? "opacity-0" : "opacity-100"
+        }`}
+        fill
+        priority
+        sizes="100vw"
+        src="/full-background.webp"
       />
-      <div
+      <Image
+        alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-no-repeat transition-opacity duration-500"
-        style={{
-          backgroundImage: "url('/full-background-night.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          opacity: isDark ? 1 : 0,
-        }}
+        className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top transition-opacity duration-500 ${
+          isDark ? "opacity-100" : "opacity-0"
+        }`}
+        fill
+        priority
+        sizes="100vw"
+        src="/full-background-night.webp"
       />
       <div
         aria-hidden="true"
@@ -220,7 +222,7 @@ export default function Hero() {
       />
       <div className="relative z-10">
       <div className="relative flex min-h-screen flex-col items-center overflow-hidden text-[#fffdf5]">
-      <Navbar isDark={isDark} onToggleTheme={() => setIsDark((current) => !current)} />
+      <Navbar />
 
         <section
           className="relative z-10 flex flex-1 items-center justify-center px-6 pb-24 text-center"

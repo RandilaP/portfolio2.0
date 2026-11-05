@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import Navbar from "../navbar";
+import { useTheme } from "../theme-provider";
 
 const projects = [
   {
@@ -95,37 +95,38 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#314a3c] text-[#fffdf5]">
-      <div
+      <Image
+        alt=""
         aria-hidden="true"
-        className="absolute inset-0 z-0 bg-cover bg-no-repeat transition-opacity duration-500"
-        style={{
-          backgroundImage: "url('/project.jpeg')",
-          backgroundPosition: "center top",
-          opacity: isDark ? 0 : 1,
-        }}
+        className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top transition-opacity duration-500 ${
+          isDark ? "opacity-0" : "opacity-100"
+        }`}
+        fill
+        priority
+        sizes="100vw"
+        src="/project.jpeg"
       />
-      <div
+      <Image
+        alt=""
         aria-hidden="true"
-        className="absolute inset-0 z-0 bg-cover bg-no-repeat transition-opacity duration-500"
-        style={{
-          backgroundImage: "url('/project-night.jpeg')",
-          backgroundPosition: "center top",
-          opacity: isDark ? 1 : 0,
-        }}
+        className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top transition-opacity duration-500 ${
+          isDark ? "opacity-100" : "opacity-0"
+        }`}
+        fill
+        priority
+        sizes="100vw"
+        src="/project-night.jpeg"
       />
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[1] bg-black/35"
       />
       <div className="relative z-10">
-        <Navbar
-          isDark={isDark}
-          onToggleTheme={() => setIsDark((current) => !current)}
-        />
+        <Navbar />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-10 lg:px-16">
           <section className="mx-auto max-w-3xl py-20 text-center sm:py-32">

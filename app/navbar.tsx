@@ -1,16 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useTheme } from "./theme-provider";
 
-type NavbarProps = {
-  isDark?: boolean;
-  onToggleTheme?: () => void;
-};
-
-export default function Navbar({ isDark = false, onToggleTheme }: NavbarProps) {
-  const [localDark, setLocalDark] = useState(isDark);
-  const dark = onToggleTheme ? isDark : localDark;
+export default function Navbar() {
+  const { isDark: dark, toggleTheme } = useTheme();
 
   return (
     <>
@@ -73,8 +67,7 @@ export default function Navbar({ isDark = false, onToggleTheme }: NavbarProps) {
         aria-pressed={dark}
         className="absolute right-4 top-5 z-20 flex h-8 w-12 cursor-pointer items-center rounded-full border border-white/60 bg-black/20 p-1 text-white transition-colors hover:border-[#f3c98b] sm:right-6 sm:top-7 sm:w-14"
         onClick={() => {
-          setLocalDark((current) => !current);
-          onToggleTheme?.();
+          toggleTheme();
         }}
       >
         <span
