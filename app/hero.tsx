@@ -3,9 +3,14 @@
 
 import {
   useLayoutEffect,
+  useRef,
   useState,
 } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
@@ -116,40 +121,93 @@ const experiences = [
   },
 ];
 
+const companyLogos: Record<string, string> = {
+  "Arimac Lanka Digital": "/exp-logo/arimac.svg",
+  "The Jobhelpers": "/exp-logo/jobhelpers-logo.svg",
+  "Volunteer Sasnaka Sansada": "/exp-logo/sasnaka.svg",
+  "Google Summer of Code": "/exp-logo/gsoc-logo.svg",
+  OpenMRS: "/exp-logo/openmrs-logo.svg",
+  "Sustainable Education Foundation": "/exp-logo/sef-logo.svg",
+  "Lanka Software Foundation": "/exp-logo/lsf-logo.svg",
+};
+
 export default function Hero() {
+  const pageRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
 
   useLayoutEffect(() => {
-    gsap.fromTo(
-      ".experience-item",
-      { y: 35, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
+    const context = gsap.context(() => {
+      gsap.from(".hero-content", {
+        y: 35,
+        opacity: 0,
+        duration: 1,
         ease: "power3.out",
-        clearProps: "opacity,transform",
-      },
-    );
+      });
+
+      gsap.utils.toArray<HTMLElement>(".section-content").forEach((section) => {
+        gsap.from(section, {
+          y: 45,
+          opacity: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 82%",
+            once: true,
+          },
+        });
+      });
+
+      gsap.utils.toArray<HTMLElement>(".experience-item").forEach((item) => {
+        gsap.from(item, {
+          y: 35,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 88%",
+            once: true,
+          },
+        });
+      });
+
+      gsap.from(".projects-content", {
+        y: 35,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".projects-content",
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }, pageRef);
+
+    return () => context.revert();
   }, []);
 
   return (
-    <main className="bg-[#f3ead6] text-[#314a3c]">
-      <div className="relative flex min-h-screen flex-col items-center overflow-hidden bg-[#314a3c] text-[#fffdf5]">
+    <main
+      className="relative overflow-hidden bg-[#314a3c] text-[#314a3c]"
+      ref={pageRef}
+    >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
+        className="pointer-events-none absolute inset-0 z-0 bg-top bg-no-repeat transition-opacity duration-500"
         style={{
-          backgroundImage: "url('/hero.jpeg')",
+          backgroundImage: "url('/full-background.webp')",
+          backgroundSize: "100% 100%",
           opacity: isDark ? 0 : 1,
         }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
+        className="pointer-events-none absolute inset-0 z-0 bg-top bg-no-repeat transition-opacity duration-500"
         style={{
-          backgroundImage: "url('/hero_night.jpeg')",
+          backgroundImage: "url('/full-background-night.webp')",
+          backgroundSize: "100% 100%",
           opacity: isDark ? 1 : 0,
         }}
       />
@@ -157,6 +215,8 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[1] bg-black/20"
       />
+      <div className="relative z-10">
+      <div className="relative flex min-h-screen flex-col items-center overflow-hidden text-[#fffdf5]">
       <nav className="relative z-10 flex w-full max-w-5xl items-center justify-center px-6 py-8">
         <div className="flex items-center gap-8 text-sm tracking-wide">
           <a className="transition-colors hover:text-[#f3c98b]" href="#home">
@@ -227,7 +287,7 @@ export default function Hero() {
           className="relative z-10 flex flex-1 items-center justify-center px-6 pb-24 text-center"
           id="home"
         >
-          <div className="max-w-3xl">
+          <div className="hero-content max-w-3xl">
             <p className="mb-5 text-xs uppercase tracking-[0.35em] text-[#f3c98b]">
               Software engineer
             </p>
@@ -246,31 +306,7 @@ export default function Hero() {
         className="relative isolate min-h-screen overflow-hidden px-6 py-32 sm:px-10 lg:px-16"
         id="about"
       >
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
-          style={{
-  backgroundImage: "url('/about-us.jpeg')",
-  backgroundSize: "100% calc(100% + 80px)",
-  backgroundPosition: "center -75px",
-  opacity: isDark ? 0 : 1,
-}}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
-          style={{
-            backgroundImage: "url('/about-us-night.jpeg')",
-            backgroundSize: "100% calc(100% + 80px)",
-  backgroundPosition: "center -75px",
-            opacity: isDark ? 1 : 0,
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-black/20"
-        />
-        <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="section-content relative z-10 mx-auto max-w-7xl">
           <div className="text-center text-white">
             <p className="text-sm uppercase tracking-[0.3em] text-[#f3c98b]">
               What I do
@@ -321,28 +357,7 @@ export default function Hero() {
         className="relative isolate min-h-screen overflow-hidden px-6 pb-32 pt-40 text-white sm:px-10 lg:px-16"
         id="experience"
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
-          style={{
-            backgroundImage: "url('/experience1.jpeg')",
-            opacity: isDark ? 0 : 1,
-            
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
-          style={{
-            backgroundImage: "url('/experience-night.jpeg')",
-            opacity: isDark ? 1 : 0,
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-black/20"
-        />
-        <div className="relative z-20 mx-auto max-w-3xl text-center">
+        <div className="section-content relative z-20 mx-auto max-w-3xl text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-[#f3c98b]">
             Experience
           </p>
@@ -363,14 +378,21 @@ export default function Hero() {
                 }`}
                 key={`${experience.company}-${experience.role}`}
               >
-                <span
-                  aria-hidden="true"
-                  className={`absolute top-2 h-3 w-3 rounded-full border-2 border-[#f3c98b] bg-[#314a3c] ${
+                <div
+                  className={`absolute top-0 z-10 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-[#f3c98b] bg-white shadow-sm ${
                     index % 2 === 0
-                      ? "left-2 sm:-right-[6px] sm:left-auto"
-                      : "left-2 sm:-left-[6px]"
+                      ? "left-0 sm:-right-5 sm:left-auto"
+                      : "left-0 sm:-left-5"
                   }`}
-                />
+                >
+                  <Image
+                    alt={`${experience.company} logo`}
+                    className="h-full w-full rounded-full object-cover"
+                    height={40}
+                    src={companyLogos[experience.company]}
+                    width={40}
+                  />
+                </div>
                 <p className="text-sm uppercase tracking-[0.15em] text-[#f3c98b]">
                   {experience.company}
                 </p>
@@ -399,20 +421,7 @@ export default function Hero() {
         className="relative isolate overflow-hidden px-6 py-24 text-center text-white sm:px-10"
         id="projects"
       >
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/footer.jpeg')",
-             backgroundSize: "100% calc(100% + 200px)",
-                backgroundPosition: "center -150px",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1] bg-black/30"
-        />
-        <div className="relative z-10">
+        <div className="projects-content relative z-10">
           <p className="text-sm uppercase tracking-[0.3em] text-[#f3c98b]">
             Next stop
           </p>
@@ -445,6 +454,7 @@ export default function Hero() {
           </p>
         </div>
       </footer>
+      </div>
     </main>
   );
 }

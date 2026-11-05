@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: "ITC Avant Garde", sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
