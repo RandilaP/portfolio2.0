@@ -101,17 +101,19 @@ export default function ProjectsPage() {
     <main className="relative min-h-screen overflow-hidden bg-[#314a3c] text-[#fffdf5]">
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-0 bg-cover bg-top bg-no-repeat transition-opacity duration-500"
+        className="absolute inset-0 z-0 bg-cover bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: "url('/project.jpeg')",
+          backgroundPosition: "center top",
           opacity: isDark ? 0 : 1,
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-0 bg-cover bg-top bg-no-repeat transition-opacity duration-500"
+        className="absolute inset-0 z-0 bg-cover bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: "url('/project-night.jpeg')",
+          backgroundPosition: "center top",
           opacity: isDark ? 1 : 0,
         }}
       />
@@ -125,12 +127,12 @@ export default function ProjectsPage() {
           onToggleTheme={() => setIsDark((current) => !current)}
         />
 
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-          <section className="mx-auto max-w-3xl py-24 text-center sm:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-10 lg:px-16">
+          <section className="mx-auto max-w-3xl py-20 text-center sm:py-32">
             <p className="text-sm uppercase tracking-[0.3em] text-[#f3c98b]">
               Selected work
             </p>
-            <h1 className="mt-4 text-5xl leading-tight tracking-wide sm:text-7xl">
+            <h1 className="mt-4 text-4xl leading-tight tracking-wide sm:text-7xl">
               Projects built with curiosity
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/85 sm:text-lg">

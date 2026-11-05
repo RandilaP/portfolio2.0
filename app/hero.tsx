@@ -196,19 +196,21 @@ export default function Hero() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-top bg-no-repeat transition-opacity duration-500"
+        className="pointer-events-none absolute inset-0 z-0 bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: "url('/full-background.webp')",
-          backgroundSize: "100% 100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
           opacity: isDark ? 0 : 1,
         }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-top bg-no-repeat transition-opacity duration-500"
+        className="pointer-events-none absolute inset-0 z-0 bg-no-repeat transition-opacity duration-500"
         style={{
           backgroundImage: "url('/full-background-night.webp')",
-          backgroundSize: "100% 100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
           opacity: isDark ? 1 : 0,
         }}
       />
