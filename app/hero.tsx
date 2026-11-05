@@ -250,15 +250,19 @@ export default function Hero() {
           aria-hidden="true"
           className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
           style={{
-            backgroundImage: "url('/about-us.jpeg')",
-            opacity: isDark ? 0 : 1,
-          }}
+  backgroundImage: "url('/about-us.jpeg')",
+  backgroundSize: "100% calc(100% + 80px)",
+  backgroundPosition: "center -75px",
+  opacity: isDark ? 0 : 1,
+}}
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat transition-opacity duration-500"
           style={{
             backgroundImage: "url('/about-us-night.jpeg')",
+            backgroundSize: "100% calc(100% + 80px)",
+  backgroundPosition: "center -75px",
             opacity: isDark ? 1 : 0,
           }}
         />
@@ -323,6 +327,7 @@ export default function Hero() {
           style={{
             backgroundImage: "url('/experience1.jpeg')",
             opacity: isDark ? 0 : 1,
+            
           }}
         />
         <div
@@ -399,6 +404,8 @@ export default function Hero() {
           className="absolute inset-0 z-0 bg-[length:100%_100%] bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/footer.jpeg')",
+             backgroundSize: "100% calc(100% + 200px)",
+                backgroundPosition: "center -150px",
           }}
         />
         <div
