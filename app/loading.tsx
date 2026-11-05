@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 
 export default function Loading() {
   return (
-    <main className="relative min-h-screen bg-[#314a3c] text-[#fffdf5]">
+    <main className="relative min-h-screen bg-[#CFF3F3] text-[#fffdf5]">
       <Navbar />
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-5">
